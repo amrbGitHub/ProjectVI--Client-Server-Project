@@ -1,0 +1,5 @@
+﻿  Client.cpp
+C:\Users\brian\source\repos\Project6-My Part\Client\Client.cpp(17,25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\brian\source\repos\Project6-My Part\Client\Client.cpp(31,71): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\Project6-My Part\Client\Client.cpp(54,69): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Client.vcxproj -> C:\Users\brian\Source\Repos\Project6-My Part\x64\Debug\Client.exe
