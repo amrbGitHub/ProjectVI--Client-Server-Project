@@ -10,14 +10,17 @@
 
 #define PORT 54000
 #define MAX_BUFFER 1024
-#define CLIENT_TIMEOUT_SECONDS 60 // Timeout after 60 seconds of no data
 
 // Structure to store client's fuel consumption data
 struct FuelData {
     std::vector<std::pair<std::chrono::steady_clock::time_point, double>> fuelReadings; // Stores (timestamp, fuelRemaining)
     double totalFuelConsumed = 0.0;    // Total fuel consumed for the session
-    double fuelConsumptionValue = 0.0;  // Fuel consumption value in liters (used for fuel consumption calculations)
+    double fuelConsumptionValue = 0.0;  // Fuel consumption value in liters per second
+    double finalAverageFuelConsumption = 0.0; // Final average fuel consumption for the flight
 };
+
+// Structure to store the final average fuel consumption for each client
+std::map<int, double> finalFuelConsumptionData; // Key: client ID, Value: final average fuel consumption
 
 // Function to receive data from the client
 std::string readData(SOCKET clientSocket) {
@@ -44,8 +47,8 @@ bool parseData(const std::string& data, double& fuelRemaining) {
     return false;
 }
 
-// Function to calculate and store the final fuel consumption value
-void calculateFuelConsumptionValue(int clientID, FuelData& fuelData) {
+// Function to calculate and store the final fuel consumption value and average fuel consumption
+void fuelCalculations(int clientID, FuelData& fuelData) {
     if (fuelData.fuelReadings.size() < 2) {
         std::cout << "Not enough data to calculate fuel consumption for Client " << clientID << std::endl;
         return;
@@ -64,12 +67,19 @@ void calculateFuelConsumptionValue(int clientID, FuelData& fuelData) {
     // Calculate total time in seconds
     double totalTimeElapsed = std::chrono::duration<double>(endTime - startTime).count();
 
-    // Calculate fuel consumption value (total fuel consumed)
+    // Calculate fuel consumption value
     fuelData.totalFuelConsumed = totalFuel;
-    fuelData.fuelConsumptionValue = totalFuel / totalTimeElapsed;  // Fuel consumption value per time unit
+    fuelData.fuelConsumptionValue = totalFuel / totalTimeElapsed;
+
+    // Calculate final average fuel consumption (based on total fuel consumed and total time elapsed)
+    fuelData.finalAverageFuelConsumption = totalFuel / (fuelData.fuelReadings.size() - 1);
 
     std::cout << "Client " << clientID << " - Final Total Fuel Consumed: " << fuelData.totalFuelConsumed << " liters" << std::endl;
-    std::cout << "Client " << clientID << " - Final Fuel Consumption Value: " << fuelData.fuelConsumptionValue << " L/s" << std::endl;
+    std::cout << "Client " << clientID << " - Current Fuel Consumption Value: " << fuelData.fuelConsumptionValue << " L/s" << std::endl;
+    std::cout << "Client " << clientID << " - Final Average Fuel Consumption: " << fuelData.finalAverageFuelConsumption << " liters" << std::endl;
+
+    // Store final average fuel consumption for that client
+    finalFuelConsumptionData[clientID] = fuelData.finalAverageFuelConsumption;
 }
 
 // Function to handle client communication
@@ -84,6 +94,9 @@ void handleClient(SOCKET clientSocket) {
 
     // Define a map to store fuel data for each client
     std::map<int, FuelData> clientFuelData;
+
+    // Timeout duration (in seconds)
+    const int clientTimeoutSeconds = 60;
 
     while (true) {
         std::string data = readData(clientSocket);
@@ -113,15 +126,15 @@ void handleClient(SOCKET clientSocket) {
 
         // Check for timeout
         auto elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(currentTime - clientFuelData[clientID].fuelReadings.back().first).count();
-        if (elapsedTime >= CLIENT_TIMEOUT_SECONDS) {
-            std::cout << "Flight has ended for Client " << clientID << ", calculating fuel consumption value..." << std::endl;
-            calculateFuelConsumptionValue(clientID, clientFuelData[clientID]);
+        if (elapsedTime >= clientTimeoutSeconds) {
+            std::cout << "Flight has ended for Client " << clientID << ", calculating fuel consumption rate..." << std::endl;
+            fuelCalculations(clientID, clientFuelData[clientID]);
             break;
         }
     }
 
     // Ensure final calculation if client disconnects or session ends
-    calculateFuelConsumptionValue(clientID, clientFuelData[clientID]);
+    fuelCalculations(clientID, clientFuelData[clientID]);
 
     // Close the client socket
     closesocket(clientSocket);
