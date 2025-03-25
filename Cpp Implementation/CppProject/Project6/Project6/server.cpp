@@ -11,6 +11,7 @@
 #include <thread>
 #include <chrono>
 #include <atomic>
+#include <memory>
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -33,10 +34,10 @@ bool parseDateTime(const std::string& datetimeStr, std::tm& timeStruct) {
 
     ss >> timeStruct.tm_mon >> delimiter;
     if (delimiter != '_') return false;
-    timeStruct.tm_mon -= 1; 
+    timeStruct.tm_mon -= 1; // tm_mon is 0-based
 
     ss >> timeStruct.tm_year;
-    timeStruct.tm_year -= 1900; 
+    timeStruct.tm_year -= 1900; // tm_year is years since 1900
 
     ss >> timeStruct.tm_hour >> delimiter;
     if (delimiter != ':') return false;
@@ -50,7 +51,7 @@ bool parseDateTime(const std::string& datetimeStr, std::tm& timeStruct) {
 }
 
 // calculate time difference in hours
-double timeDiff(const std::tm& tm1, const std::tm& tm2) {
+    double timeDiff(const std::tm& tm1, const std::tm& tm2) {
     auto time1 = std::mktime(const_cast<std::tm*>(&tm1));
     auto time2 = std::mktime(const_cast<std::tm*>(&tm2));
     return std::difftime(time2, time1) / 3600.0; // Convert seconds to hours
@@ -70,7 +71,7 @@ void handleClient(SOCKET clientSocket, sockaddr_in clientAddr) {
     int bytesReceived;
 
     try {
-        while ((bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0)) > 0) {
+        while ((bytesReceived = recv(clientSocket, buffer, sizeof(buffer) - 1, 0)) > 0) {
             buffer[bytesReceived] = '\0';
             std::string data(buffer);
 
@@ -181,6 +182,12 @@ int main() {
         return 1;
     }
 
+    // Allow address reuse
+    int enable = 1;
+    if (setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, (const char*)&enable, sizeof(enable)) < 0) {
+        std::cerr << "setsockopt failed" << std::endl;
+    }
+
     sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_addr.s_addr = INADDR_ANY; // Listen on any
@@ -202,6 +209,8 @@ int main() {
 
     std::cout << "Server listening on port 12345" << std::endl;
 
+    std::vector<std::thread> clientThreads;
+
     while (true) {
         sockaddr_in clientAddr;
         int clientAddrSize = sizeof(clientAddr);
@@ -211,9 +220,14 @@ int main() {
             continue;
         }
 
-        std::thread(handleClient, clientSocket, clientAddr).detach();
+        // Create a new thread for each client and detach it
+        clientThreads.emplace_back([clientSocket, clientAddr]() {
+            handleClient(clientSocket, clientAddr);
+            });
+        clientThreads.back().detach();
     }
 
+    // Cleanup 
     closesocket(listenSocket);
     WSACleanup();
     return 0;
