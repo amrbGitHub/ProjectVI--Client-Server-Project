@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Cpp Implementation",
+    "\\Cpp Implementation\\CppProject",
+    "\\Visual Studio Solution\\Python Project"
   ],
-  "SelectedNode": "\\PythonApplication1.sln",
+  "SelectedNode": "\\Cpp Implementation\\CppProject",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Desktop\\repos\\ProjectVI--Client-Server-Project\\Cpp Implementation\\CppProject\\Project6\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9511F00C-576C-4814-9052-7043F8CC0036}|Project6\\Project6.vcxproj|D:\\Desktop\\repos\\ProjectVI--Client-Server-Project\\Cpp Implementation\\CppProject\\Project6\\Project6\\server.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9511F00C-576C-4814-9052-7043F8CC0036}|Project6\\Project6.vcxproj|solutionrelative:Project6\\server.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F02353E9-73FA-4167-87B5-1CE1590EF9F0}|Client\\Client.vcxproj|D:\\Desktop\\repos\\ProjectVI--Client-Server-Project\\Cpp Implementation\\CppProject\\Project6\\Client\\client.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F02353E9-73FA-4167-87B5-1CE1590EF9F0}|Client\\Client.vcxproj|solutionrelative:Client\\client.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "client.cpp",
+              "DocumentMoniker": "D:\\Desktop\\repos\\ProjectVI--Client-Server-Project\\Cpp Implementation\\CppProject\\Project6\\Client\\client.cpp",
+              "RelativeDocumentMoniker": "Client\\client.cpp",
+              "ToolTip": "D:\\Desktop\\repos\\ProjectVI--Client-Server-Project\\Cpp Implementation\\CppProject\\Project6\\Client\\client.cpp",
+              "RelativeToolTip": "Client\\client.cpp",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAAAIcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-25T13:04:10.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "server.cpp",
+              "DocumentMoniker": "D:\\Desktop\\repos\\ProjectVI--Client-Server-Project\\Cpp Implementation\\CppProject\\Project6\\Project6\\server.cpp",
+              "RelativeDocumentMoniker": "Project6\\server.cpp",
+              "ToolTip": "D:\\Desktop\\repos\\ProjectVI--Client-Server-Project\\Cpp Implementation\\CppProject\\Project6\\Project6\\server.cpp",
+              "RelativeToolTip": "Project6\\server.cpp",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAAALgAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-25T12:51:17.083Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
