@@ -1,5 +1,34 @@
-# Prerequisites
-*.d
+# Visual Studio files and directories
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.sdf
+*.opensdf
+*.db
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+
+# Build directories
+[Bb]uild/
+[Bb]in/
+[Oo]bj/
+x64/
+x86/
+[Dd]ebug/
+[Rr]elease/
+*.exe
+*.dll
+*.lib
+*.exp
+*.ilk
+*.pdb
+*.ipch
+*.iobj
+*.ipdb
 
 # Compiled Object files
 *.slo
@@ -16,10 +45,6 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
 # Compiled Static libraries
 *.lai
 *.la
@@ -30,3 +55,85 @@
 *.exe
 *.out
 *.app
+
+# Qt Creator files
+*.autosave
+
+# Qt Creator build directories
+build-*/
+
+# Debug files
+*.debug
+
+# Intellij IDEA files
+.idea/
+*.iml
+
+# Visual Studio Code files
+.vscode/
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+*.cmake
+Makefile
+
+# Doxygen files
+[Dd]oxygen/
+[Dd]ocs/
+[Hh]tml/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor temporary files
+*~
+*.swp
+*.swo
+
+# Log files
+*.log
+
+# Dependency files
+*.d
+
+# Backup files
+*.bak
+*.tmp
+*.old
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Test coverage files
+*.gcda
+*.gcno
+*.gcov
+
+# Profiling files
+*.ps
+*.prof
+
+# Documentation
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
