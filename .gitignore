@@ -17,6 +17,7 @@
 [Bb]in/
 [Oo]bj/
 x64/
+!x64/LoadTest_Batch.bat
 x86/
 [Dd]ebug/
 [Rr]elease/
