@@ -1,0 +1,73 @@
+Crash Testing
+
+3 pcs 1 server and 2 clients
+
+Pre-flight:
+
+Server
+	Open Visual Studio
+	confirm in release
+	confirm server startup project
+	Run visual studio performance profiler 
+		Confirm cpu selected
+		Confirm memory selected
+	Server should be waiting for clients
+	Take snapshot
+
+Client 
+
+	Pre req: LoadTests_Batch.bat should be configured to run with minimum of 100 clients
+	Confirm IP
+	
+	Crash Test 1:
+		On a second PC
+	 	Open cmd prompt
+		navigate to client.exe, telem, and LoadTest_Batch.bat file directory
+		Open task manager 
+			open performance monitor
+
+	Crash Test 2: 
+		On a second and third PC
+	 	Open cmd prompt
+		navigate to client.exe, telem, and LoadTest_Batch.bat file directory
+		Open task manager 
+			open performance monitor
+		
+Crash Test 1
+	
+	Client
+		Run the batch file monitor server load (100 clients)
+
+	Server
+		Let the system run for a few minutes (start processing client data)
+
+	THE CRASH:
+		Once clients are communicating with the server power off the pc running the clients
+		DO NOT SHUT OFF THE SERVER YET
+		Let the server run for another minute to collect data
+		Close server
+
+Post Test 1
+
+	Record the performance profiler diagnostic data
+
+Crash Test 2
+	Client 1
+		Run LoadTest_Batch with 100 clients
+	Client 2
+		Run LoadTest_Batch with 100 clients
+	Server
+		Let system ramp up and process client data
+		
+	THE CRASH:
+		Client 1 turn off power 
+	
+		DO NOT SHUT OFF THE SERVER YET
+		Let the server run for another minute to collect data
+		Close server
+
+Post Test 2
+
+	Record the performance profiler diagnostic data
+	
+		
