@@ -1,0 +1,116 @@
+Project 6 requirements:
+
+Unlimited connections [x]
+
+During live connection with client, the server shall:
+	read transmitted data [x]
+	parse the timing information and remaining fuel onboard [x]
+	calculate and store the current fuel consumption value [x]
+
+When current flight ends:
+	Store final average fuel consumption [x]
+
+The server shall determine the airplane in the fleet using:
+	a transmitted unique ID number [x]
+
+When a flight starts:
+	client opens telemetry file [x]
+	read line of data with time and fuel remaining onboard [x]
+	packetize the data [x]
+	transmit the data to the server [x]
+	
+
+Test Environment:
+
+My laptop will be the Server (presumably it is the strongest, its old though.)
+
+Brian and Amro will be clients
+
+
+Load Testing:
+
+Load_Test_01
+Most Powerful Computer As Server 
+
+File to run: LoadTest_Batch.bat
+
+Count: 25 - we can add clients as we see fit by just re running the batch file
+
+Pre-flight:
+
+Server
+	Confirm in release mode
+	Confirm server is startup project
+	Run visual studio using the profiler with:
+		CPU Monitoring 
+		Memory Monitoring
+	Take Snapshot on profiler - Load_Test_Begin
+	Wait at Server running screen for clients to connect
+
+Client
+	Open Windows Command prompt
+	Navigate to client.exe, telem, and batch file directory
+	Open Windows Task Manager:
+		Select Performance tab
+	Setup screen to see both the command prompt and the task manager
+		Monitor task manager (specifically CPU usage)
+
+Load-Test:
+
+Server
+	Take snapshots of memory during anomalies 
+	Take snapshots of memory every 2 minute mark
+	Take final snapshot after clients complete their flight plans
+
+Client run the batch file
+	Monitor CPU usage
+	if < 90% run the batch file again
+	repeat until load is ~90% do not go up to 100%
+
+Post-Test 
+
+Save Profiler Output
+
+Weakest Computer As Server (I think Amro said his was weak)
+
+File to run: LoadTest_Batch.bat
+
+Count: 25 - we can add clients as we see fit by just re running the batch file
+
+Pre-flight:
+
+Server
+	Confirm in release mode
+	Confirm server is startup project
+	Run visual studio using the profiler with:
+		CPU Monitoring 
+		Memory Monitoring
+	Take Snapshot on profiler - Load_Test_Begin
+	Wait at Server running screen for clients to connect
+
+Client
+	Open Windows Command prompt
+	Navigate to client.exe, telem, and batch file directory
+	Open Windows Task Manager:
+		Select Performance tab
+	Setup screen to see both the command prompt and the task manager
+		Monitor task manager (specifically CPU usage)
+
+Load-Test:
+
+Server
+	Take snapshots of memory during anomalies 
+	Take snapshots of memory every 2 minute mark
+	Take final snapshot after clients complete their flight plans
+
+Client run the batch file
+	Monitor CPU usage
+	if < 90% run the batch file again
+	repeat until load is ~90% do not go up to 100%
+
+Post-Test 
+
+Save Profiler Output
+
+
+

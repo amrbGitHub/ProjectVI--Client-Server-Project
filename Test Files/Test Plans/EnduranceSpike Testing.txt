@@ -1,0 +1,52 @@
+Endurance/Spike Testing
+
+1 Server 2 Clients
+
+(during my testing i think 30 clients took 6 minutes so 360 seconds - 60 300 seconds for timeout)
+
+We may need to do some preliminary testing to confirm these results will vary depending on the machines we're running
+
+Pre-flight
+
+Count: 30
+Timeout: 300
+
+Close all servers and restart visual studio
+
+Server
+	Open Visual Studio
+	Server as startup project
+	start with visual studio profiler in release
+		Select CPU and Memory monitoring
+	Server should be waiting for clients
+	Take first snapshot
+
+Client
+	Open cmd prompt
+	navigate to client, telem, EnduranceTest_Batch.bat directory
+	open windows task manager 
+		look at performance tab
+	
+Endurance Test:
+
+	Let test run for minimum 1 hour
+
+Server 
+	Take snapshots every 5-10 minutes for memory analysis
+
+Client 
+	Run the batch file 
+		monitor cpu load and for crashes early on
+
+|||||||||||||||||||||||||||||SPIKE TEST|||||||||||||||||||||||||||| 
+
+IMPORTANT THIS MUST HAPPEN HALFWAY THROUGH ENDURANCE TEST
+
+Client:
+	Based on our earlier tests we need to setup the loadtest batch file to get to that 90% (but not 100%)
+
+	adjust count in LoadTest_Batch.bat to the # 
+	On a separate pc (not the client doing the endurance test) run the batch file to spawn the clients and spike the server during the endurance test
+
+Server:
+	Take memory snapshots in the profiler before, during, and after the spike
